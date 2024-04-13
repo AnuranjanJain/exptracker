@@ -36,3 +36,16 @@ def create_database_table():
                     )""")
     connection.commit()
 create_database_table()
+
+#gui dev 
+
+def update_expenses_list():
+    try:
+        expenses_listbox.delete(0, tk.END)  # Clear listbox
+        cursor.execute("SELECT * FROM expenses")
+        expenses = cursor.fetchall()
+        for expense in expenses:
+            formatted_string = f"{expense[0]} - {expense[1]} - ${expense[2]} - {expense[3]}"
+            expenses_listbox.insert(tk.END, formatted_string)
+    except mysql.connector.Error as err:
+        print(f"Error retrieving expense data: {err}")
