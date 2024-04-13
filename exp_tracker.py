@@ -79,3 +79,29 @@ def delete_expense():
         print(f"Error deleting expense: {err}")
         messagebox.showerror("Error", f"Failed to delete expense: {err}")
 
+# Function to plot spending insights
+def plot_spending_insights():
+    try:
+        # Clear previous plot if exists
+        for widget in plot_frame.winfo_children():
+            widget.destroy()
+
+        cursor.execute("SELECT DATE(timestamp), SUM(amount) FROM expenses GROUP BY DATE(timestamp) ORDER BY DATE(timestamp)")
+        data = cursor.fetchall()
+        dates = [row[0] for row in data]
+        amounts = [row[1] for row in data]
+
+        fig, ax = plt.subplots()
+        ax.bar(dates, amounts)
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))  # Format x-axis labels
+        ax.set_xlabel('Date')
+        ax.set_ylabel('Total Spending')
+        ax.set_title('Spending Insights')
+        ax.tick_params(axis='x', rotation=45)  # Rotate x-axis labels for better visibility
+
+        canvas = FigureCanvasTkAgg(fig, master=plot_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+    except mysql.connector.Error as err:
+        print(f"Error generating spending insights: {err}")
+
