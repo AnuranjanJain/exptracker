@@ -105,3 +105,39 @@ def plot_spending_insights():
     except mysql.connector.Error as err:
         print(f"Error generating spending insights: {err}")
 
+# GUI
+import tkinter as tk
+root = tk.Tk()
+root.title('Expense Tracker')
+
+input_frame = tk.Frame(root)
+input_frame.pack()
+
+title_label = tk.Label(input_frame, text='Title:')
+title_label.grid(row=0, column=0)
+title_entry = tk.Entry(input_frame)
+title_entry.grid(row=0, column=1)
+
+amount_label = tk.Label(input_frame, text='Amount:')
+amount_label.grid(row=1, column=0)
+amount_entry = tk.Entry(input_frame)
+amount_entry.grid(row=1, column=1)
+
+timestamp_label = tk.Label(input_frame, text='Timestamp: \n (YYYY-MM-DD HH:MI:SS)')
+timestamp_label.grid(row=2, column=0)
+timestamp_entry = tk.Entry(input_frame)
+timestamp_entry.grid(row=2, column=1)
+
+add_button = tk.Button(input_frame, text='Add Expense', command=add_expense)
+add_button.grid(row=3, column=0)
+
+delete_button = tk.Button(input_frame, text='Delete Expense', command=delete_expense)
+delete_button.grid(row=3, column=1)
+
+expenses_listbox = tk.Listbox(root, width=50)
+expenses_listbox.pack()
+
+plot_frame = tk.Frame(root)
+plot_frame.pack()
+
+root.mainloop()
