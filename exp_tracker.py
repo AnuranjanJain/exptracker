@@ -49,3 +49,18 @@ def update_expenses_list():
             expenses_listbox.insert(tk.END, formatted_string)
     except mysql.connector.Error as err:
         print(f"Error retrieving expense data: {err}")
+
+def add_expense():
+    try:
+        title = title_entry.get()
+        amount = float(amount_entry.get())
+        timestamp = timestamp_entry.get()
+        cursor.execute("INSERT INTO expenses (title, amount, timestamp) VALUES (%s, %s, %s)",
+                       (title, amount, timestamp))
+        connection.commit()
+        messagebox.showinfo("Success", "Expense added successfully")
+        update_expenses_list()
+        plot_spending_insights()
+    except (ValueError, mysql.connector.Error) as err:
+        print(f"Error adding expense: {err}")
+        messagebox.showerror("Error", f"Failed to add expense: {err}")
