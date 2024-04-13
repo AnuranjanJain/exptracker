@@ -1,7 +1,6 @@
-import tkinter
+#Learnt How to use this library 
+
 import mysql.connector
-
-
 mydb ={
   "host":"localhost",
   "user":"username",
@@ -23,13 +22,7 @@ def check_database_exists(db_name):
       # Handle other potential errors here (e.g., permission issues)
       print(f"Database connection error: {err}")
       return False
-    
-
-
-
 print(" Checking Required Database Present or Not :) ")
-
-
 if check_database_exists("my_expenses") : 
     print(" Already Exists , Means that you have already run this program before xD")
     mydb["database"]="my_expenses"
@@ -41,7 +34,7 @@ if check_database_exists("my_expenses") :
         try:
             sql = f"DESCRIBE {table_name}"
             cursor.execute(sql)
-            print("It's there")
+            #print("It's there")
             return True  # If no error occurs, assume the table exists
         except mysql.connector.Error as err:
             # Check for specific error code indicating table not found (may vary)
@@ -57,10 +50,8 @@ if check_database_exists("my_expenses") :
        cursor.execute("CREATE TABLE data (title VARCHAR(50), amount INT(10), timeStamp TIMESTAMP ) ")
 
 
-
-
-
 else:
     print("Creating Database : my_expenses ")
     cursor.execute("CREATE DATABASE my_expenses")
     cursor.execute("CREATE TABLE data (title VARCHAR(50), amount INT(10), timeStamp TIMESTAMP ")
+
