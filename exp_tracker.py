@@ -64,3 +64,18 @@ def add_expense():
     except (ValueError, mysql.connector.Error) as err:
         print(f"Error adding expense: {err}")
         messagebox.showerror("Error", f"Failed to add expense: {err}")
+
+def delete_expense():
+    try:
+        selected_index = expenses_listbox.curselection()
+        if selected_index:
+            selected_id = expenses_listbox.get(selected_index)[0]  # Get ID from listbox data
+            cursor.execute("DELETE FROM expenses WHERE id = %s", (selected_id,))
+            connection.commit()
+            messagebox.showinfo("Success", "Expense deleted successfully")
+            update_expenses_list()
+            plot_spending_insights()
+    except mysql.connector.Error as err:
+        print(f"Error deleting expense: {err}")
+        messagebox.showerror("Error", f"Failed to delete expense: {err}")
+
