@@ -1,8 +1,8 @@
 <p>
 <h1>Pre Requirements : </h1>
-mysql connector library installed
-mysql server installed 
-python installed
+mysql connector library installed<br>
+mysql server installed <br>
+python installed<br>
 matplotlib library installed 
 </p>
 
